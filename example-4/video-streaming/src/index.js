@@ -35,7 +35,7 @@ function connectRabbit() {
 function sendViewedMessage(messageChannel, videoID, videoPath) {
     console.log(`Publishing message on "viewed" exchange.`);
         
-    const msg = { videoPath: videoPath, videoID: videoID };
+    const msg = { videoPath: videoPath, videoID: videoID }; // Add videoID into msg
     const jsonMsg = JSON.stringify(msg);
     messageChannel.publish("viewed", "", Buffer.from(jsonMsg)); // Publish message to the "viewed" exchange.
 }
@@ -45,7 +45,7 @@ function sendViewedMessage(messageChannel, videoID, videoPath) {
 //
 function setupHandlers(app, messageChannel) {
     app.get(`/video`, (req, res) => { // Route for streaming video.
-        const videoID = req.query.id;
+        const videoID = req.query.id; // Store video id from path 
         const videoPath = `./videos/SampleVideo_1280x720_${videoID}mb.mp4`;
         fs.stat(videoPath, (err, stats) => {
             if (err) {
